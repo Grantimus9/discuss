@@ -17,3 +17,5 @@ config :discuss, Discuss.Repo,
   database: "discuss_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :appsignal, :config, active: false

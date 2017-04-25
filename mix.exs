@@ -19,7 +19,7 @@ defmodule Discuss.Mixfile do
   def application do
     [mod: {Discuss, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth, :ueberauth_github]]
+                    :phoenix_ecto, :postgrex, :ueberauth, :ueberauth_github, :appsignal]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +39,9 @@ defmodule Discuss.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:ueberauth, "~> 0.3"},
-     {:ueberauth_github, "~> 0.4"}
+     {:ueberauth_github, "~> 0.4"},
+     {:appsignal, "~> 1.0"}
+
    ]
   end
 
