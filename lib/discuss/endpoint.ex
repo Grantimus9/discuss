@@ -38,5 +38,7 @@ defmodule Discuss.Endpoint do
     key: "_discuss_key",
     signing_salt: "mjCgjnJR"
 
+
+  use Appsignal.Phoenix
   plug Discuss.Router
 end

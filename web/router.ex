@@ -1,5 +1,4 @@
 defmodule Discuss.Router do
-  use Appsignal.Phoenix # Error loggin
   use Discuss.Web, :router
 
   pipeline :browser do
