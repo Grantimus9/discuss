@@ -9,3 +9,15 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Discuss.Repo
+
+
+Repo.insert!(%Discuss.Htask{
+  inputs: %{
+    "name" => "Carl Sanders",
+    "state" => "DC",
+    "title" => "Mr."
+  },
+  output: "123456789"
+  })

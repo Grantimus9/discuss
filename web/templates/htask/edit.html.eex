@@ -1,0 +1,6 @@
+<h2>Edit htask</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: htask_path(@conn, :update, @htask) %>
+
+<%= link "Back", to: htask_path(@conn, :index) %>

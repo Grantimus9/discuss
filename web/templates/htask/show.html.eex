@@ -1,0 +1,18 @@
+<h2>Show htask</h2>
+
+<ul>
+
+  <li>
+    <strong>Inputs:</strong>
+    <%= htask_inputs(@htask.inputs) %>
+  </li>
+
+  <li>
+    <strong>Output:</strong>
+    <%= @htask.output %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: htask_path(@conn, :edit, @htask) %>
+<%= link "Back", to: htask_path(@conn, :index) %>

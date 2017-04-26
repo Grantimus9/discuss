@@ -19,6 +19,7 @@ defmodule Discuss.Router do
 
     get "/", TopicController, :index
     resources "/topics", TopicController
+    resources "/htasks", HtaskController
   end
 
   scope "/auth", Discuss do
