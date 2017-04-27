@@ -2,7 +2,7 @@ defmodule Discuss.HtaskView do
   use Discuss.Web, :view
 
   def htask_inputs(map = %{}) do
-    inspect(map)
+    inspect map
   end
 
   def htask_inputs(nil) do
@@ -10,17 +10,14 @@ defmodule Discuss.HtaskView do
   end
 
   def htask_question(map = %{}, string) do
-    string
-    |> String.replace(~r/\[\[my_key\]\]/, "inserted")
-
-    map
-    |> Map.keys
-    |> Enum.map(fn(x) -> to_string(x) end)
-    # list of keys as strings.
-    |> Enum.map(String.replace(~r/\[\[key\]\]/, "inserted"))
-
+    replace_with_value(map, string, Map.keys(map))
   end
 
+  def replace_with_value(map = %{}, string, []), do: string # return string if the list of keys is empty.
+  def replace_with_value(map = %{}, string, [key | map_keys]) do
+    string = String.replace(string, ~r/\[\[#{key}\]\]/, map["#{key}"])
+    replace_with_value(map, string, map_keys)
+  end
 
 
 end

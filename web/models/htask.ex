@@ -4,6 +4,7 @@ defmodule Discuss.Htask do
   schema "htasks" do
     field :inputs, :map
     field :output, :string
+    field :question_string, :string
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Discuss.Htask do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:inputs, :output])
-    |> validate_required([:inputs, :output])
+    |> cast(params, [:inputs, :output, :question_string])
+    |> validate_required([:inputs, :output, :question_string])
   end
 end

@@ -3,15 +3,25 @@
 <ul>
 
   <li>
-    <strong>Inputs:</strong>
-    <%= htask_inputs(@htask.inputs) %>
+    <strong>These Inputs:</strong>
+    <%= inspect @htask.inputs %>
   </li>
-
+  <br><br>
   <li>
-    <strong>Output:</strong>
+    <strong>Plus this marked up sentence:</strong>
+    <%= @htask.question_string %>
+  </li>
+  <br><br>
+  <li>
+    <strong>Creates This Question Displayed:</strong>
+    <%= htask_question(@htask.inputs, @htask.question_string) %>
+  </li>
+  <br>
+  <li>
+    <strong>Output Name:</strong>
     <%= @htask.output %>
   </li>
-
+  <br><br>
 </ul>
 
 <%= link "Edit", to: htask_path(@conn, :edit, @htask) %>

@@ -19,5 +19,6 @@ Repo.insert!(%Discuss.Htask{
     "state" => "DC",
     "title" => "Mr."
   },
+  question_string: "Please verify [[name]] still lives in [[state]] and this person goes by [[title]]",
   output: "123456789"
   })

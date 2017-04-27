@@ -3,7 +3,7 @@ defmodule Discuss.HtaskTest do
 
   alias Discuss.Htask
 
-  @valid_attrs %{inputs: %{}, output: "some content"}
+  @valid_attrs %{inputs: %{}, output: "some content", question_string: "some string"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -15,6 +15,8 @@ defmodule Discuss.HtaskTest do
     changeset = Htask.changeset(%Htask{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+
 
 
 end
