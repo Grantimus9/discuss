@@ -1,0 +1,19 @@
+<h2>Show batch</h2>
+
+<ul>
+
+  <li>
+    <strong>Csv file:</strong>
+    <%= @batch.csv_file %>
+    <%= Discuss.Csvfile.url({@batch.csvfile, @batch}) %>
+  </li>
+
+  <li>
+    <strong>Job:</strong>
+    <%= @batch.job_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: batch_path(@conn, :edit, @batch) %>
+<%= link "Back", to: batch_path(@conn, :index) %>
