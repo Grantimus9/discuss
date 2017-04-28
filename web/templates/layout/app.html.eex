@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Discuss!</title>
+    <title>Human Work</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,7 +16,7 @@
   <body>
     <nav class="light-blue">
       <div class="nav-wrapper container">
-        <a href="/" class="brand-logo">Discussions</a>
+        <a href="/" class="brand-logo">Human Work</a>
         <ul class="right">
           <%= if @conn.assigns[:user] do %>
             <li><%= link "Sign Out", to: auth_path(@conn, :signout) %></li>

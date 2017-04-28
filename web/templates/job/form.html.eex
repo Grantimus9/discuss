@@ -1,0 +1,40 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :question_string, "Question to Ask Worker", class: "control-label" %>
+    <%= text_input f, :question_string, class: "form-control" %>
+    <%= error_tag f, :question_string %>
+  </div>
+
+  <div class="form-group">
+    <h4>Question Creation Tips</h4>
+    <ul>
+      <li> This will be shown to your workers. Make it very clear what you want them to do.</li>
+      <li> You can insert values from the rows of the CSV you will upload in the next step here by inserting [[column_name]] where you want the value to appear </li>
+    </ul>
+
+    <p>
+      For example, assuming you have a CSV with headers 'name' and 'favorite_color', you might do this: "<%= @example_string %>"
+      <ul>
+        <li> Column Name -> Value could be "name" and "George Washington", and maybe you also have a column "favorite_color" and George Washington's row says his favorite color is "green"</li>
+        <li> Question to Ask Worker: <%= @example_string %> </li>
+        <li> Output To Worker: <%= Discuss.HtaskView.htask_question(%{"name" => "George Washington", "favorite_color" => "green"}, @example_string) %> </li>
+      </ul>
+    </p>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

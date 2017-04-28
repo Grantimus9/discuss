@@ -17,6 +17,7 @@ defmodule Discuss.Router do
   scope "/", Discuss do
     pipe_through :browser # Use the default browser stack
 
+    resources "/jobs", JobController
     get "/", TopicController, :index
     resources "/topics", TopicController
     resources "/htasks", HtaskController

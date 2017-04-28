@@ -1,0 +1,17 @@
+<h2>Jobs</h2>
+
+<ul class="collection">
+  <%= for job <- @jobs do %>
+    <li class="collection-item">
+      <%= job.name %><br>
+      <%= job.question_string %>
+    </li>
+  <% end %>
+</ul>
+
+
+<div class="fixed-action-btn">
+  <%= link to: job_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" do %>
+    <i class="material-icons">add</i>
+  <% end %>
+</div>
