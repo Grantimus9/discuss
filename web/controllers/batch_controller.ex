@@ -54,6 +54,8 @@ defmodule Discuss.BatchController do
   def delete(conn, %{"id" => id}) do
     batch = Repo.get!(Batch, id)
 
+    IO.inspect batch.csv_file
+
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(batch)

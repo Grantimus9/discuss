@@ -4,16 +4,16 @@ defmodule Discuss.Csvfile do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:original]
+  @versions [:uploaded]
   @acl :public_read # Make all uploads accessible publicly by default
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]
 
   # Whitelist file extensions:
-  # def validate({file, _}) do
-  #   ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
-  # end
+  def validate({file, _}) do
+    ~w(.csv) |> Enum.member?(Path.extname(file.file_name))
+  end
 
   # Define a thumbnail transformation:
   # def transform(:thumb, _) do
@@ -21,9 +21,10 @@ defmodule Discuss.Csvfile do
   # end
 
   # Override the persisted filenames:
-  # def filename(version, _) do
-  #   version
-  # end
+  def filename(version, {file, _}) do
+    file_name = Path.basename(file.file_name, Path.extname(file.file_name))
+    "#{version}_#{file_name}"
+  end
 
   # Override the storage directory:
   # def storage_dir(version, {file, scope}) do

@@ -13,6 +13,8 @@
     <%= @batch.job_id %>
   </li>
 
+
+
 </ul>
 
 <%= link "Edit", to: batch_path(@conn, :edit, @batch) %>
