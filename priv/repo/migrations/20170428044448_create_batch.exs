@@ -3,7 +3,8 @@ defmodule Discuss.Repo.Migrations.CreateBatch do
 
   def change do
     create table(:batches) do
-      add :csv_file, :string
+      add :csv_file_url, :string
+      add :csv_file_name, :string
       add :job_id, references(:jobs)
 
       timestamps()

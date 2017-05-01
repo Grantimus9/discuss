@@ -1,7 +1,7 @@
 defmodule Discuss.BatchController do
   use Discuss.Web, :controller
 
-  alias Discuss.Batch
+  alias Discuss.{Batch, Csvfile}
 
   def index(conn, _params) do
     batches = Repo.all(Batch)
@@ -16,8 +16,18 @@ defmodule Discuss.BatchController do
   def create(conn, %{"batch" => batch_params}) do
     changeset = Batch.changeset(%Batch{}, batch_params)
 
+    IO.inspect batch_params["csv_file"]
+
+    # 1. stash file
+    Discuss.Uploaders.BatchCsvfile.upload(batch_params["csv_file"])
+
+    # 2. with stashed file data, create db entry.
+    # 3. if either of the above fails, return error
+
+
     case Repo.insert(changeset) do
-      {:ok, _batch} ->
+      {:ok, batch} ->
+
         conn
         |> put_flash(:info, "Batch created successfully.")
         |> redirect(to: batch_path(conn, :index))

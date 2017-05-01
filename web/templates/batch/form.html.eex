@@ -12,6 +12,18 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :csv_file_name, class: "control-label" %>
+    <%= text_input f, :csv_file_name, class: "form-control" %>
+    <%= error_tag f, :csv_file_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :csv_file_url, class: "control-label" %>
+    <%= text_input f, :csv_file_url, class: "form-control" %>
+    <%= error_tag f, :csv_file_url %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :job_id, class: "control-label" %>
     <%= number_input f, :job_id, class: "form-control" %>
     <%= error_tag f, :job_id %>

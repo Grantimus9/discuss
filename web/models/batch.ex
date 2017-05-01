@@ -1,9 +1,9 @@
 defmodule Discuss.Batch do
   use Discuss.Web, :model
-  use Arc.Ecto.Model
 
   schema "batches" do
-    field :csv_file, Discuss.Csvfile.Type
+    field :csv_file_url, :string
+    field :csv_file_name, :string
     field :job_id, :integer
 
     timestamps()
@@ -14,7 +14,7 @@ defmodule Discuss.Batch do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:csv_file, :job_id])
-    |> validate_required([:csv_file, :job_id])
+    |> cast(params, [:csv_file_url, :csv_file_name, :job_id])
+    |> validate_required([:csv_file_url, :csv_file_name, :job_id])
   end
 end

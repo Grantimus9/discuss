@@ -31,9 +31,7 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: System.get_env("GITHUB_CLIENT_ID"),
   client_secret: System.get_env("GITHUB_CLIENT_SECRET")
 
-config :arc,
-  storage: Arc.Storage.S3, # or Arc.Storage.Local
-  bucket: System.get_env("AWS_S3_BUCKET") # if using Amazon S3
+
 
 config :ex_aws,
   access_key_id: [System.get_env("AWS_ACCESS_KEY_ID"), :instance_role],
