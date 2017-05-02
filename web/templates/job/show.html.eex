@@ -1,31 +1,37 @@
-<h2>Show job</h2>
+<h2>Job: <%= @job.name %></h2>
 
 <ul>
-
   <li>
-    <strong>Name:</strong>
-    <%= @job.name %>
-  </li>
-
-  <li>
-    <strong>Question string:</strong>
+    <strong>Question Presented to Workers:</strong>
     <%= @job.question_string %>
   </li>
 
   <li>
-    <%= for batch <- @batches do %>
-      <ul>
-        <li><%= link batch.csv_file_name, to: batch.csv_file_url %><%= link "Delete", to: batch_path(@conn, :delete, batch), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs text-right" %></li>
-      </ul>
-    <% end %>
+    <h5>Batches</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>CSV File / Batch</th>
+          <th class='text-right'>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for batch <- @batches do %>
+          <tr>
+            <td><%= link batch.csv_file_name, to: batch.csv_file_url %></td>
+            <td class='text-right'>
+              <%= link "Delete Batch", to: batch_path(@conn, :delete, batch), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs text-right" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
   </li>
 
   <li>
-  <%= render "batch_form.html", changeset: @batch_changeset,
-                          action: batch_path(@conn, :create) %>
+    <h5>Add New Batch</h5>
+    <%= render "batch_form.html", changeset: @batch_changeset,
+                                  action: batch_path(@conn, :create) %>
   </li>
 
 </ul>
-
-<%= link "Edit", to: job_path(@conn, :edit, @job) %>
-<%= link "Back", to: job_path(@conn, :index) %>

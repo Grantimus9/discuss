@@ -9,13 +9,10 @@
     <%= label f, :csv_file, class: "control-label" %>
     <%= file_input f, :csv_file, class: "form-control" %>
     <%= error_tag f, :csv_file %>
-  </div>
-
-  <div class="form-group">
     <%= hidden_input f, :job_id, class: "form-control" %>
+    <div class="text-right">
+      <%= submit "Upload Batch CSV", class: "btn btn-primary" %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
 <% end %>
