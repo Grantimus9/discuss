@@ -16,8 +16,6 @@ defmodule Discuss.BatchController do
   def create(conn, %{"batch" => batch_params}) do
     changeset = Batch.changeset(%Batch{}, batch_params)
 
-    IO.inspect batch_params["csv_file"]
-
     # 1. stash file
     Discuss.Uploaders.BatchCsvfile.upload(batch_params["csv_file"])
 

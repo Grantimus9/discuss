@@ -3,10 +3,14 @@ defmodule Discuss.Uploaders.BatchCsvfile do
   # Accepts a %Plug.Upload{} Struct and returns the URL of the S3 object created.
 
 
-  defstruct filename: "", bucket: "", binary: nil, url: nil
+  defstruct filename: nil, binary: nil, url: nil, path: nil
 
   # Set the whitelist of extensions here.
   @extension_whitelist ~w(.csv)
+
+  # Set the S3 Base URL:
+  @s3_url "https://s3.amazonaws.com/" <> System.get_env("AWS_S3_BUCKET") <> "/"
+
 
   def set_filename(struct) do
     uuid = Ecto.UUID.generate()
@@ -16,12 +20,15 @@ defmodule Discuss.Uploaders.BatchCsvfile do
     |> Map.merge(%{filename: filename})
   end
 
-  def set_bucket(struct) do
-    struct |> Map.merge(%{bucket: s3_bucket})
+  def set_url(struct) do
+    url = @s3_url <> struct.filename
+    struct
+    |> Map.merge(%{csv_file_url: url})
   end
 
   # # Check the extension. Throw error on failure.
   def validate_extension(struct) do
+
     file_extension = struct.filename
       |> Path.extname()
       |> String.downcase()
@@ -29,15 +36,8 @@ defmodule Discuss.Uploaders.BatchCsvfile do
     if Enum.member?(@extension_whitelist, file_extension) do
       struct
     else
-      {:error, "Invalid File Extension"}
+      nil
     end
-  end
-
-  def set_binary(struct) do
-    {:ok, file_binary } = File.read(struct.path)
-
-    struct
-    |> Map.merge(%{binary: file_binary})
   end
 
   def upload(upload_plug_struct) do
@@ -46,23 +46,22 @@ defmodule Discuss.Uploaders.BatchCsvfile do
       |> to_struct
       |> set_filename
       |> validate_extension
-      |> set_binary
-      |> set_bucket
+      |> set_url
 
-    IO.inspect finished_struct
+    %{status_code: 200} = finished_struct.path
+      |> ExAws.S3.Upload.stream_file
+      |> ExAws.S3.upload(System.get_env("AWS_S3_BUCKET"), finished_struct.filename)
+      |> ExAws.request!
 
-    {:ok, _} = ExAws.S3.put_object(s3_bucket, finished_struct.filename, finished_struct.binary)
-                |> ExAws.request
-
+    finished_struct # Return the struct back to get the new S3 URL and filename
   end
 
   def to_struct(upload_plug_struct) do
-    %Discuss.Uploaders.BatchCsvfile{}
-    |> Map.merge(upload_plug_struct)
-  end
+    plugmap = upload_plug_struct
+      |> Map.from_struct
 
-  def s3_bucket do
-    System.get_env("AWS_S3_BUCKET")
+      %Discuss.Uploaders.BatchCsvfile{}
+      |> Map.merge(plugmap)
   end
 
 end

@@ -3,7 +3,7 @@ defmodule Discuss.BatchTest do
 
   alias Discuss.Batch
 
-  @valid_attrs %{csv_file: "some content", job_id: 42}
+  @valid_attrs %{csv_file_name: "some content", csv_file_url: "a_url", job_id: 1}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
