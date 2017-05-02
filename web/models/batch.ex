@@ -4,7 +4,7 @@ defmodule Discuss.Batch do
   schema "batches" do
     field :csv_file_url, :string
     field :csv_file_name, :string
-    field :job_id, :integer
+    belongs_to :job, Discuss.Job
 
     timestamps()
   end

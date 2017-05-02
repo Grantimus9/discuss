@@ -12,6 +12,19 @@
     <%= @job.question_string %>
   </li>
 
+  <li>
+    <%= for batch <- @batches do %>
+      <ul>
+        <li><%= link batch.csv_file_name, to: batch.csv_file_url %><%= link "Delete", to: batch_path(@conn, :delete, batch), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs text-right" %></li>
+      </ul>
+    <% end %>
+  </li>
+
+  <li>
+  <%= render "batch_form.html", changeset: @batch_changeset,
+                          action: batch_path(@conn, :create) %>
+  </li>
+
 </ul>
 
 <%= link "Edit", to: job_path(@conn, :edit, @job) %>

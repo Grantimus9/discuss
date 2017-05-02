@@ -1,7 +1,7 @@
 defmodule Discuss.JobController do
   use Discuss.Web, :controller
 
-  alias Discuss.Job
+  alias Discuss.{Job, Batch}
 
   def index(conn, _params) do
     jobs = Repo.all(Job)
@@ -28,8 +28,10 @@ defmodule Discuss.JobController do
   end
 
   def show(conn, %{"id" => id}) do
-    job = Repo.get!(Job, id)
-    render(conn, "show.html", job: job)
+    job = Repo.get!(Job, id) |> Repo.preload(:batches)
+    batch_changeset = Batch.changeset(%Batch{job_id: id})
+    batches = job.batches
+    render(conn, "show.html", job: job, batch_changeset: batch_changeset, batches: batches)
   end
 
   def edit(conn, %{"id" => id}) do

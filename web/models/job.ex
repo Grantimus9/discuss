@@ -4,6 +4,7 @@ defmodule Discuss.Job do
   schema "jobs" do
     field :name, :string
     field :question_string, :string
+    has_many :batches, Discuss.Batch
 
     timestamps()
   end

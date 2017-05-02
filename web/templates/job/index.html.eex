@@ -3,7 +3,7 @@
 <ul class="collection">
   <%= for job <- @jobs do %>
     <li class="collection-item">
-      <%= job.name %><br>
+      <%= link job.name, to: job_path(@conn, :show, job) %><br>
       <%= job.question_string %>
     </li>
   <% end %>
