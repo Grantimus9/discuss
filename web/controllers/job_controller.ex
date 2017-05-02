@@ -36,8 +36,9 @@ defmodule Discuss.JobController do
 
   def edit(conn, %{"id" => id}) do
     job = Repo.get!(Job, id)
+    example_string = "Please confirm that [[name]] still likes the color [[favorite_color]]"
     changeset = Job.changeset(job)
-    render(conn, "edit.html", job: job, changeset: changeset)
+    render(conn, "edit.html", job: job, changeset: changeset, example_string: example_string)
   end
 
   def update(conn, %{"id" => id, "job" => job_params}) do

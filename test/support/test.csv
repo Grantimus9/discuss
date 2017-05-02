@@ -1,2 +1,4 @@
-name,email,state
-grant,grantmnelsn@gmail.com,IA
+name,email,state,phone number
+grant,grantmnelsn@gmail.com,IA, 123-456-7890
+Ger,ger@gmail.com,DC, 444-456-7890
+Bob,Bob@gmail.com,VT, 333-456-7890
