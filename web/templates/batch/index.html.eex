@@ -13,7 +13,7 @@
   <tbody>
 <%= for batch <- @batches do %>
     <tr>
-      <td><%= Discuss.Csvfile.url({batch.csv_file, batch}) %></td>
+      <td><%= batch.csv_file_url %></td>
       <td><%= batch.job_id %></td>
       <td><%= batch.id %></td>
 

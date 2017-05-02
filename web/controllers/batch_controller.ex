@@ -1,7 +1,7 @@
 defmodule Discuss.BatchController do
   use Discuss.Web, :controller
 
-  alias Discuss.{Batch, Csvfile}
+  alias Discuss.{Batch, Uploaders.BatchCsvfile}
 
   def index(conn, _params) do
     batches = Repo.all(Batch)
@@ -14,18 +14,16 @@ defmodule Discuss.BatchController do
   end
 
   def create(conn, %{"batch" => batch_params}) do
-    changeset = Batch.changeset(%Batch{}, batch_params)
-
     # 1. stash file
-    Discuss.Uploaders.BatchCsvfile.upload(batch_params["csv_file"])
+    %BatchCsvfile{csv_file_url: csv_file_url, filename: csv_file_name } = Discuss.Uploaders.BatchCsvfile.upload(batch_params["csv_file"])
 
     # 2. with stashed file data, create db entry.
+    batch_params = Map.merge(batch_params, %{"csv_file_name" => csv_file_name, "csv_file_url" => csv_file_url})
+    changeset = Batch.changeset(%Batch{}, batch_params)
+
     # 3. if either of the above fails, return error
-
-
     case Repo.insert(changeset) do
       {:ok, batch} ->
-
         conn
         |> put_flash(:info, "Batch created successfully.")
         |> redirect(to: batch_path(conn, :index))
@@ -62,7 +60,8 @@ defmodule Discuss.BatchController do
   def delete(conn, %{"id" => id}) do
     batch = Repo.get!(Batch, id)
 
-    IO.inspect batch.csv_file
+    ExAws.S3.delete_object(System.get_env("AWS_S3_BUCKET"), batch.csv_file_name)
+    |> ExAws.request!
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

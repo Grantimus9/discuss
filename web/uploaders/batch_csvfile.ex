@@ -3,7 +3,7 @@ defmodule Discuss.Uploaders.BatchCsvfile do
   # Accepts a %Plug.Upload{} Struct and returns the URL of the S3 object created.
 
 
-  defstruct filename: nil, binary: nil, url: nil, path: nil
+  defstruct filename: nil, binary: nil, url: nil, path: nil, csv_file_url: nil, csv_file_name: nil
 
   # Set the whitelist of extensions here.
   @extension_whitelist ~w(.csv)
