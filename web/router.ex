@@ -23,6 +23,7 @@ defmodule Discuss.Router do
     resources "/batches", BatchController
     resources "/topics", TopicController
     resources "/htasks", HtaskController
+    post "/htasks/:id/submit_work", HtaskController, :submit_work
   end
 
   scope "/auth", Discuss do

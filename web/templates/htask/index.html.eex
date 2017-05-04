@@ -17,7 +17,6 @@
 
       <td class="text-right">
         <%= link "Show", to: htask_path(@conn, :show, htask), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: htask_path(@conn, :edit, htask), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: htask_path(@conn, :delete, htask), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>

@@ -1,28 +1,46 @@
-<h2>Show htask</h2>
 
-<ul>
 
-  <li>
-    <strong>These Inputs:</strong>
-    <%= inspect @htask.inputs %>
-  </li>
-  <br><br>
-  <li>
-    <strong>Plus this marked up sentence:</strong>
-    <%= @htask.question_string %>
-  </li>
-  <br><br>
-  <li>
-    <strong>Creates This Question Displayed:</strong>
-    <%= htask_question(@htask.inputs, @htask.question_string) %>
-  </li>
-  <br>
-  <li>
-    <strong>Output Name:</strong>
-    <%= @htask.output %>
-  </li>
-  <br><br>
-</ul>
+<div class="card white  sticky-action">
+  <div class="card-content">
+    <span class='card-title grey-text text-darken-4'><%= @htask.id %></span>
+    <p><%= htask_question(@htask.inputs, @htask.question_string) %></p>
+  </div>
+  <div class="card-action">
+    <div class="row">
+      <div class="col s2">
+        <%= form_for @changeset, @action, fn f -> %>
+          <%= if @changeset.action do %>
+            <span class="alert alert-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </span>
+          <% end %>
+          <%= hidden_input f, :output, value: "true", class: "form-control" %>
+          <%= submit "Yes", class: "btn btn-default btn-xs" %>
+        <% end %>
+      </div>
+      <div class="col s2">
+        <%= form_for @changeset, @action, fn f -> %>
+          <%= if @changeset.action do %>
+            <span class="alert alert-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </span>
+          <% end %>
+          <%= hidden_input f, :output, value: "false", class: "form-control" %>
+          <%= submit "No", class: "btn btn-default btn-xs red" %>
+        <% end %>
+      </div>
+      <div class="col s2 offset-s3">
+        <%= form_for @changeset, @action, fn f -> %>
+          <%= if @changeset.action do %>
+            <span class="alert alert-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </span>
+          <% end %>
+          <%= hidden_input f, :output, value: "unanswerable", class: "form-control" %>
+          <%= submit "Unanswerable", class: "btn orange btn-default btn-xs" %>
+        <% end %>
+      </div>
+    </div>
 
-<%= link "Edit", to: htask_path(@conn, :edit, @htask) %>
-<%= link "Back", to: htask_path(@conn, :index) %>
+  </div>
+</div>

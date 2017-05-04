@@ -17,4 +17,13 @@ defmodule Discuss.Htask do
     |> cast(params, [:inputs, :output, :question_string])
     |> validate_required([:inputs, :output, :question_string])
   end
+
+  @doc """
+  Builds a work submission changeset based on the `struct` and `params`.
+  """
+  def submit_work_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:output])
+    |> validate_required([:output])
+  end
 end
