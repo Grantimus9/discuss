@@ -71,4 +71,30 @@ defmodule Discuss.BatchController do
     |> put_flash(:info, "Batch deleted successfully.")
     |> redirect(to: batch_path(conn, :index))
   end
+
+  # Options Submission / Form Submission.
+  def options(conn, %{"id" => id, "batch" => batch_params}) do
+    batch = Repo.get!(Batch, id)
+    options_changeset = Batch.options_changeset(batch, batch_params)
+
+    case Repo.update(options_changeset) do
+      {:ok, batch} ->
+        conn
+        |> put_flash(:info, "Updated!")
+        |> redirect(to: batch_path(conn, :options, batch))
+      {:error, changeset} ->
+        render(conn, "options.html", batch: batch, options_changeset: changeset)
+    end
+  end
+
+  # Show/Get options.
+  def options(conn, %{"id" => id}) do
+    batch = Repo.get!(Batch, id)
+    options_changeset = Batch.options_changeset(batch)
+    conn
+    |> render("options.html", batch: batch, options_changeset: options_changeset)
+  end
+
+
+
 end
