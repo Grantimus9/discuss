@@ -1,5 +1,5 @@
 <h4>Batch Options</h4>
-<p>User can set how many responses per line they want, worker qualifications, etc.</p>
+<p>User can set how many responses per task they want, worker qualifications, etc.</p>
 
 
 <%= render "options_form.html", changeset: @options_changeset,

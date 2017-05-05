@@ -20,7 +20,8 @@
           <tr>
             <td><%= link batch.csv_file_name, to: batch.csv_file_url %></td>
             <td class='text-right'>
-              <%= link "Delete Batch", to: batch_path(@conn, :delete, batch), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs text-right" %>
+              <%= link "Delete Batch", to: batch_path(@conn, :delete, batch), method: :delete, data: [confirm: "Are you sure?"], class: "btn red btn-xs text-right" %>
+              <%= link "Continue", to: batch_path(@conn, :options, batch), class: "btn green btn-xs text-right" %>
             </td>
           </tr>
         <% end %>

@@ -1,2 +1,15 @@
 <h3>Confirm and Publish</h3>
 <p>Here the requester can look over the final pricing, etc.</p>
+
+<div class="row">
+  <div class="col s6">
+
+  </div>
+  <div class="col s6">
+
+  </div>
+</div>
+
+
+
+<button class="btn btn-primary">Publish</button>

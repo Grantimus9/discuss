@@ -23,8 +23,8 @@ defmodule Discuss.Router do
     resources "/batches", BatchController
     get "/batches/:id/options", BatchController, :options
     put "/batches/:id/options", BatchController, :options
-    get "/batches/:id/options/publish", BatchController, :publish
-    put "/batches/:id/options/publish", BatchController, :publish
+    get "/batches/:id/publish", BatchController, :publish
+    put "/batches/:id/publish", BatchController, :publish
     resources "/topics", TopicController
     resources "/htasks", HtaskController
     post "/htasks/:id/submit_work", HtaskController, :submit_work

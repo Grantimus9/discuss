@@ -80,8 +80,7 @@ defmodule Discuss.BatchController do
     case Repo.update(options_changeset) do
       {:ok, batch} ->
         conn
-        |> put_flash(:info, "Updated!")
-        |> redirect(to: batch_path(conn, :options, batch))
+        |> redirect(to: batch_path(conn, :publish, batch))
       {:error, changeset} ->
         render(conn, "options.html", batch: batch, options_changeset: changeset)
     end
@@ -93,6 +92,19 @@ defmodule Discuss.BatchController do
     options_changeset = Batch.options_changeset(batch)
     conn
     |> render("options.html", batch: batch, options_changeset: options_changeset)
+  end
+
+  # POST/put publish authorization.
+  def publish(conn, %{"id" => id, "batch" => %{"publish" => true}}) do
+
+  end
+
+  # Get/show Publish Confirmation Page
+  def publish(conn, %{"id" => id}) do
+    batch = Repo.get!(Batch, id)
+
+    conn
+    |> render("publish.html", batch: batch)
   end
 
 
