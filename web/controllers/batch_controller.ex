@@ -26,7 +26,7 @@ defmodule Discuss.BatchController do
       {:ok, batch} ->
         conn
         |> put_flash(:info, "Batch created successfully.")
-        |> redirect(to: batch_path(conn, :index))
+        |> redirect(to: batch_path(conn, :options, batch))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -96,6 +96,21 @@ defmodule Discuss.BatchController do
 
   # POST/put publish authorization.
   def publish(conn, %{"id" => id, "batch" => %{"publish" => true}}) do
+    batch = Repo.get!(Batch, id)
+
+    case Discuss.Task.publish(batch) do
+      {:ok, _} ->
+        conn
+        |> redirect(batch_path(conn, :show, batch))
+      {:error, _err} ->
+          conn
+          |> put_flash(:info, "Something Went Wrong With Errors")
+          |> redirect(batch_path(conn, :publish, batch))
+      _ ->
+        conn
+        |> put_flash(:info, "Unknown Error")
+        |> redirect(batch_path(conn, :publish, batch))
+    end
 
   end
 
