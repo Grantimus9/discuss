@@ -44,6 +44,7 @@ defmodule Discuss.Mixfile do
      {:ueberauth_github, "~> 0.4"},
      {:appsignal, "~> 1.0"},
      {:ex_aws, "~> 1.1"},
+     {:ex_csv, "~> 0.1.5"},
      {:hackney, "~> 1.6"},
      {:poison, "~> 3.1", override: true},
      {:sweet_xml, "~> 0.6"}
